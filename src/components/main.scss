@@ -1,14 +1,29 @@
 @use 'scss-reset/reset';
-
-$bg: linear-gradient(180deg, rgba(212, 199, 79, 0.73) 0%, #11978c 100%);
-$text: #0b665e;
-$btn: red;
-$border: grey;
-$white: white;
-$black: black;
-$font: 'Zalando Sans Expanded', sans-serif;
+@import "./variables";
+@import "./button";
 
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+}
+
+html, body {
+    font-size: 16px;
+    font-family: $font;
+    color: $text;
+    width: 100%;
+    min-height: 100%;
+    @include mp(768px) {
+        font-size: 22px;
+    }
+}
+
+body {
+    padding: 20px;
+    background: $bg;
+}
 body {
     background: $bg;
     margin: 0;

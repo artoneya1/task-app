@@ -1,0 +1,33 @@
+@mixin mp($size) {
+    @media only screen and (min-width: $size) {
+        @content;
+    }
+}
+
+section {
+    background: red;
+    width: 90%;
+    max-width: 700px;
+    margin: auto;
+    border: 1px solid blue;
+    border-radius: 10px;
+}
+
+/*
+.button {
+    width: 15%;
+    min-width: 48px;
+    min-height: 48px;
+    color: purple;
+    border: 2px solid tomato;
+    border-radius: 10px;
+    outline: none;
+}
+.button:hover {
+    cursor: pointer;
+}
+.button:hover, .button:focus {
+    filter: brightness(120%);
+    box-shadow: 4px 2px 5 px green;
+}
+*/
