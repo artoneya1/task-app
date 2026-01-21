@@ -1,11 +1,24 @@
 {
+  "name": "todo-app-react",
+  "private": true,
+  "version": "0.0.0",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
   "dependencies": {
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "@parcel/transformer-sass": "^2.16.3",
+    "crypto-js": "^4.2.0",
+    "json-server": "^1.0.0-beta.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.12.0",
+    "scss-reset": "^1.4.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.6",
-    "@babel/preset-react": "^7.28.5",
-    "parcel": "^2.16.3"
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "parcel": "^2.14.0"
   }
 }
