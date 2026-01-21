@@ -1,0 +1,8 @@
+@use 'scss-reset/reset';
+
+$bg: green;
+$outline: blue;
+
+h1 {
+    color: $bg;
+}
