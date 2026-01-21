@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.6",
+    "@babel/preset-react": "^7.28.5",
+    "parcel": "^2.16.3"
+  }
+}
