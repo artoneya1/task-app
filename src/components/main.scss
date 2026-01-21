@@ -1,8 +1,33 @@
 @use 'scss-reset/reset';
 
-$bg: green;
-$outline: blue;
+$bg: linear-gradient(180deg, rgba(212, 199, 79, 0.73) 0%, #11978c 100%);
+$text: #0b665e;
+$btn: red;
+$border: grey;
+$white: white;
+$black: black;
+$font: 'Zalando Sans Expanded', sans-serif;
+
+
+body {
+    background: $bg;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
 
 h1 {
-    color: $bg;
+    color: $text;
+    font-family: $font;
+    font-size: 2rem;
+    font-weight: 900;
+}
+p {
+    color: $text;
+    font-family: $font;
+    font-size: 1rem;
+    font-weight: 900;
 }
