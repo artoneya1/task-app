@@ -8,8 +8,10 @@ export default function App() {
       <h1>My Todo App</h1>
       <div>
         <Input title="Add a new task" />
-        <button className="button">Add task</button>
+        <Button title="Add task" />
       </div>
+      <p><span id="todoCount">0</span> tasks total</p>
+      <Button title="Delete" variant="danger" />
     </div>
   );
 }

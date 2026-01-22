@@ -1,6 +1,6 @@
 @use 'scss-reset/reset';
 @import "./variables";
-@import "./button";
+@import "./style";
 
 
 * {
@@ -19,7 +19,6 @@ html, body {
         font-size: 22px;
     }
 }
-
 body {
     padding: 20px;
     background: $bg;
@@ -37,21 +36,37 @@ h1 {
     font-size: 2rem;
     font-weight: 900;
 }
-
 p {
     color: $text;
     font-family: $font;
     font-size: 1rem;
-    font-weight: 900;
+    font-weight: 500;
 }
 
 .button {
     width: 15%;
     min-width: 6rem;
     min-height: 1rem;
-    background: $btn;
+    padding: 10px 10px;
     border: 2px solid $border;
     border-radius: 10px;
     outline: none;
     color: $text;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: 700;
+    &--primary {
+        background: $btn;
+    }
+    &--danger {
+        background: $btn-delete;
+        color: $text;
+    }
+}
+.btn:hover {
+    cursor: pointer;
+}
+.btn:hover, .button:focus {
+    filter: brightness(120%);
+    box-shadow: 4px 2px 5px $btn-hover;
 }
