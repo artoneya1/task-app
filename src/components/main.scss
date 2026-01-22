@@ -23,9 +23,6 @@ html, body {
 body {
     padding: 20px;
     background: $bg;
-}
-body {
-    background: $bg;
     margin: 0;
     height: 100vh;
     display: flex;
@@ -40,9 +37,21 @@ h1 {
     font-size: 2rem;
     font-weight: 900;
 }
+
 p {
     color: $text;
     font-family: $font;
     font-size: 1rem;
     font-weight: 900;
+}
+
+.button {
+    width: 15%;
+    min-width: 6rem;
+    min-height: 1rem;
+    background: $btn;
+    border: 2px solid $border;
+    border-radius: 10px;
+    outline: none;
+    color: $text;
 }
