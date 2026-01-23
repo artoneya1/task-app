@@ -1,7 +1,10 @@
-export default function Button({ title, variant = "primary" }) {
+export default function Button({ children, onClick, variant }) {
   return (
-    <button className={`button button--${variant}`}>
-      {title}
+    <button
+      className={`btn btn--${variant}`}
+      onClick={onClick}
+    >
+      {children}
     </button>
   );
 }

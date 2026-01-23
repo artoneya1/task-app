@@ -1,21 +1,43 @@
 import "./components/main.scss";
+import { useState, useEffect } from "react";
 import Input from "./components/Input";
 import Button from "./components/Button";
-import { useState } from "react";
+
 
 export default function App() {
-  const [tasks, setTasks] = useState([
-    "First task", "Second task"
-  ]);
+  const [tasks, setTasks] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("todo"));
+    if (stored) setTasks(stored);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todo", JSON.stringify(tasks));
+  }, [tasks]);
+
+  function addTask() {
+    if (inputValue.trim() === "") return;
+    setTasks([...tasks, inputValue]);
+    setInputValue("");
+  }
+
+  function deleteAll() {
+    setTasks([]);
+  }
+
   return (
     <div className="container">
       <h1>My Todo List</h1>
 
       <div className="todo">
-
         <div className="todo__input">
-          <input type="text" className="input-field" placeholder="Add a new task" />
-          <button className="btn btn--primary">Add</button>
+          <Input value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onEnter={addTask}
+          />
+          <Button variant="primary" onClick={addTask}>Add</Button>
         </div>
         
         <div className="counter-container">
@@ -27,21 +49,11 @@ export default function App() {
 
           <div className="counter-actions">
             <p>{tasks.length} items total</p>
-            <button className="btn btn--danger">Delete All</button>
+            <Button variant="danger" onClick={deleteAll}>Delete All</Button>
           </div>
           
         </div>
-
       </div>
-
     </div>
   );
 }
-
-/*
-function toggleTask(index) {
-  todo[index].disabled = !todo[index].disabled;
-  saveToLocalStorage();
-  displayTasks();
-}
-*/
