@@ -24,8 +24,12 @@ export default function App() {
               <li key={index}>{task}</li>
             ))}
           </ul>
-          <p>{tasks.length} items total</p>
-          <button className="btn btn--danger">Delete All</button>
+
+          <div className="counter-actions">
+            <p>{tasks.length} items total</p>
+            <button className="btn btn--danger">Delete All</button>
+          </div>
+          
         </div>
 
       </div>

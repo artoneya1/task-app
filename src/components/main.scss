@@ -61,9 +61,10 @@ p {
         gap: 0.75rem;
     }
     &--danger {
-        background: $btn-delete;
-        color: $text;
+        background: transparent;
+        color: $btn-delete;
         align-self: flex-end;
+        border: none;
     }
 }
 .btn:hover {
@@ -108,16 +109,49 @@ p {
     padding: 0;
     margin: 0;
     overflow-y: scroll;
+    margin-bottom: 1rem;
 }
-li {                                //todo//
+li {
+    padding: 0.5rem;
+    color: $text;
+}
+.disabled {
     display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-    padding: 1.3rem;
-    li text {
-        color: blue;
-    }
+    text-decoration: line-through;
 }
+.counter-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+}
+
+
+/*
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+input[type="checkbox"]::before {
+  content: "\2713";
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.7rem;
+  text-align: center;
+  border: 0.06rem solid blue;
+  border-radius: 50%;
+  color: transparent;
+}
+input[type="checkbox"]:checked::before {
+  color: brown;
+  background-color: yellow;
+  border: 0.06rem solid red;
+  border-radius: 50%;
+}
+*/
+
 
 /*
 &__actions {
