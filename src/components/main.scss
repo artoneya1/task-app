@@ -1,0 +1,128 @@
+@use 'scss-reset/reset';
+@import "./variables";
+@import "./style";
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+}
+
+html, body {
+    font-size: 16px;
+    font-family: $font;
+    color: $text;
+    width: 100%;
+    min-height: 100%;
+    @include mp(768px) {
+        font-size: 22px;
+    }
+}
+body {
+    padding: 20px;
+    background: $bg;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+h1 {
+    color: $text;
+    font-family: $font;
+    font-size: 2rem;
+    font-weight: 900;
+    text-align: center;
+}
+p {
+    color: $text;
+    font-family: $font;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.btn {
+    width: auto;
+    padding: 10px 20px;
+    border: 2px solid $border;
+    border-radius: 15px;
+    outline: none;
+    color: $text;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 700;
+    &--primary {
+        background: $btn;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    &--danger {
+        background: $btn-delete;
+        color: $text;
+        align-self: flex-end;
+    }
+}
+.btn:hover {
+    cursor: pointer;
+}
+.btn:hover, .button:focus {
+    filter: brightness(120%);
+    box-shadow: 4px 2px 5px $btn-hover;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+    border-radius: 2rem;
+    background: $grey;
+    height: 30rem;
+    width: 30rem;
+    box-shadow: 0 1rem 3rem 1rem rgba(0, 23, 71, 0.15);
+}
+
+.todo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.todo__input {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+}
+.input-field {
+    background: $white;
+    flex: 1;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+
+.scroll {
+    height: 15rem;
+    padding: 0;
+    margin: 0;
+    overflow-y: scroll;
+}
+li {                                //todo//
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.3rem;
+    li text {
+        color: blue;
+    }
+}
+
+/*
+&__actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+*/
