@@ -59,58 +59,57 @@ export default function App() {
 
       <div className="todo">
         <div className="todo__input">
-          <Input value={inputValue}
+          <Input
+            value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onEnter={addTask}
           />
-          <Button variant="primary" onClick={addTask}>Add</Button>
+          <Button variant="primary" onClick={addTask}>
+            Add
+          </Button>
         </div>
-        
+
         <div className="counter-container">
           <ul className="scroll">
             {tasks.map((task, index) => (
               <li key={index} className={task.completed ? "done" : ""}>
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => toggleTask(index)}
-                />
-                {editIndex === index ? (
-                  <>
+                <div className="task-row">
                     <input
-                      value={editValue}
-                      onChange={(e) => setEditValue(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") saveEdit(index);
-                      }}
+                      type="checkbox"
+                      className="task-checkbox"
+                      checked={task.completed}
+                      onChange={() => toggleTask(index)}
                     />
-                    <Button
-                      variant="primary"
-                      onClick={() => saveEdit(index)}
-                    >
-                      Save
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    <span>{task.text}</span>
-                    <Button
-                      variant="primary"
-                      onClick={() => startEdit(index, task.text)}
-                    >
-                      Edit
-                    </Button>
-                  </>
-                )}
+                    
+                    {editIndex === index ? (
+                      <input
+                        className="task-edit-input"
+                        value={editValue}
+                        onChange={(e) => setEditValue(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") saveEdit(index);
+                        }}
+                        onBlur={() => saveEdit(index)}
+                        autoFocus
+                      />
+                    ) : (
+                      <span
+                        className="task-text"
+                        onClick={() => startEdit(index, task.text)}
+                      >
+                        {task.text}
+                      </span>
+                    )}
+                </div>
               </li>
             ))}
           </ul>
-
           <div className="counter-actions">
             <p>{tasks.length} items total</p>
-            <Button variant="danger" onClick={deleteAll}>Delete All</Button>
+            <Button variant="danger" onClick={deleteAll}>
+              Delete All
+            </Button>
           </div>
-          
         </div>
       </div>
     </div>
