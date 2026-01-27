@@ -9,6 +9,7 @@
     box-sizing: 0;
 }
 
+/* BODY */
 html, body {
     font-size: 16px;
     font-family: $font;
@@ -29,7 +30,19 @@ body {
     justify-content: space-evenly;
     align-items: center;
 }
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+    border-radius: 2rem;
+    background: $grey;
+    height: 30rem;
+    width: 30rem;
+    box-shadow: 0 1rem 3rem 1rem rgba(0, 23, 71, 0.15);
+}
 
+/* TEXT */
 h1 {
     color: $text;
     font-family: $font;
@@ -44,6 +57,7 @@ p {
     font-weight: 500;
 }
 
+/* BUTTONS */
 .btn {
     width: auto;
     padding: 10px 20px;
@@ -75,18 +89,7 @@ p {
     box-shadow: 4px 2px 5px $btn-hover;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 2rem;
-    border-radius: 2rem;
-    background: $grey;
-    height: 30rem;
-    width: 30rem;
-    box-shadow: 0 1rem 3rem 1rem rgba(0, 23, 71, 0.15);
-}
-
+/* TODO INPUT */
 .todo {
     display: flex;
     flex-direction: column;
@@ -104,6 +107,7 @@ p {
     padding: 0.5rem;
 }
 
+/* SCROLL AND TASKS */
 .scroll {
     height: 15rem;
     padding: 0;
@@ -111,6 +115,7 @@ p {
     overflow-y: scroll;
     margin-bottom: 1rem;
 }
+
 li {
     padding: 0.5rem;
     color: $text;
@@ -129,6 +134,7 @@ li.done span {
     padding: 0.5rem;
 }
 
+/* CHECKBOX */
 .task-row {
   display: flex;
   align-items: center;

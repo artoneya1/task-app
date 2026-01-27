@@ -10,21 +10,25 @@ export default function App() {
   const [editIndex, setEditIndex] = useState(null);
   const [editValue, setEditValue] = useState("");
 
+  /* LOAD TASKS FROM LOCAL STORAGE */
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("todo"));
     if (stored) setTasks(stored);
   }, []);
 
+  /* SAVE TASKS TO LOCAL STORAGE */
   useEffect(() => {
     localStorage.setItem("todo", JSON.stringify(tasks));
   }, [tasks]);
 
+  /* ADD NEW TASK */
   function addTask() {
     if (!inputValue.trim()) return;
     setTasks([...tasks, { text: inputValue, completed: false }]);
     setInputValue("");
   }
 
+  /* TASK COMPLETED */
   function toggleTask(index) {
     setTasks(
       tasks.map((task, i) =>
@@ -35,11 +39,13 @@ export default function App() {
     );
   }
 
+  /* EDIT TASK */
   function startEdit(index, text) {
   setEditIndex(index);
   setEditValue(text);
   }
 
+  /* SAVE TASK */
   function saveEdit(index) {
   setTasks(
     tasks.map((task, i) =>
@@ -49,10 +55,12 @@ export default function App() {
   setEditIndex(null);
   }
 
+  /* DELETE ALL TASKS */
   function deleteAll() {
     setTasks([]);
   }
 
+  /* UI */
   return (
     <div className="container">
       <h1>My Todo List</h1>
