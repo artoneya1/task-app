@@ -119,6 +119,10 @@ p {
 li {
     padding: 0.5rem;
     color: $text;
+    cursor: grab;
+    &:active {
+        cursor: grabbing;
+    }
 }
 li.done span {
     text-decoration: line-through;

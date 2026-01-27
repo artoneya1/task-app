@@ -7,8 +7,9 @@ import Button from "./components/Button";
 export default function App() {
   const [tasks, setTasks] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [editIndex, setEditIndex] = useState(null);
+  const [editId, setEditId] = useState(null);
   const [editValue, setEditValue] = useState("");
+  const [dragId, setDragId] = useState(null);
 
   /* LOAD TASKS FROM LOCAL STORAGE */
   useEffect(() => {
@@ -24,15 +25,22 @@ export default function App() {
   /* ADD NEW TASK */
   function addTask() {
     if (!inputValue.trim()) return;
-    setTasks([...tasks, { text: inputValue, completed: false }]);
+    setTasks([
+      ...tasks,
+      {
+        id: Date.now(),
+        text: inputValue,
+        completed: false
+      }
+    ]);
     setInputValue("");
   }
 
   /* TASK COMPLETED */
-  function toggleTask(index) {
+  function toggleTask(id) {
     setTasks(
-      tasks.map((task, i) =>
-        i === index
+      tasks.map(task =>
+        task.id === id
           ? { ...task, completed: !task.completed }
           : task
       )
@@ -40,24 +48,45 @@ export default function App() {
   }
 
   /* EDIT TASK */
-  function startEdit(index, text) {
-  setEditIndex(index);
-  setEditValue(text);
+  function startEdit(id, text) {
+    setEditId(id);
+    setEditValue(text);
   }
 
   /* SAVE TASK */
-  function saveEdit(index) {
-  setTasks(
-    tasks.map((task, i) =>
-      i === index ? { ...task, text: editValue } : task
-    )
-  );
-  setEditIndex(null);
+  function saveEdit(id) {
+  if (!editValue.trim()) {
+    setTasks(tasks.filter((task) => task.id !== id));
+  } else {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id
+          ? { ...task, text: editValue }
+          : task
+      )
+    );
   }
+  setEditId(null);
+  setEditValue("");
+}
+
+  /* REORDER TASKS */
+  function reorderTasks(dragId, hoverId) {
+    if (dragId === hoverId) return;
+
+    const newTasks = [...tasks];
+    const dragIndex = newTasks.findIndex(t => t.id === dragId);
+    const hoverIndex = newTasks.findIndex(t => t.id === hoverId);
+    const [movedTask] = newTasks.splice(dragIndex, 1);
+    newTasks.splice(hoverIndex, 0, movedTask);
+
+    setTasks(newTasks);
+} 
 
   /* DELETE ALL TASKS */
   function deleteAll() {
     setTasks([]);
+    setEditId(null);
   }
 
   /* UI */
@@ -79,31 +108,36 @@ export default function App() {
 
         <div className="counter-container">
           <ul className="scroll">
-            {tasks.map((task, index) => (
-              <li key={index} className={task.completed ? "done" : ""}>
+            {tasks.map((task) => (
+              <li key={task.id} className={task.completed ? "done" : ""}
+                draggable
+                onDragStart={() => setDragId(task.id)}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => reorderTasks(dragId, task.id)}
+              >
                 <div className="task-row">
                     <input
                       type="checkbox"
                       className="task-checkbox"
                       checked={task.completed}
-                      onChange={() => toggleTask(index)}
+                      onChange={() => toggleTask(task.id)}
                     />
                     
-                    {editIndex === index ? (
+                    {editId === task.id ? (
                       <input
                         className="task-edit-input"
                         value={editValue}
                         onChange={(e) => setEditValue(e.target.value)}
                         onKeyDown={(e) => {
-                          if (e.key === "Enter") saveEdit(index);
+                          if (e.key === "Enter") saveEdit(task.id);
                         }}
-                        onBlur={() => saveEdit(index)}
+                        onBlur={() => saveEdit(task.id)}
                         autoFocus
                       />
                     ) : (
                       <span
                         className="task-text"
-                        onClick={() => startEdit(index, task.text)}
+                        onClick={() => startEdit(task.id, task.text)}
                       >
                         {task.text}
                       </span>
@@ -112,6 +146,7 @@ export default function App() {
               </li>
             ))}
           </ul>
+
           <div className="counter-actions">
             <p>{tasks.length} items total</p>
             <Button variant="danger" onClick={deleteAll}>
