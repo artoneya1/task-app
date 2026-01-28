@@ -22,15 +22,16 @@ https://artoneya1.github.io/task-app/
 - Parcel
 
 ## Project structure
-src/
-│
-├── components/
-│ ├── Input.jsx
-│ ├── Button.jsx
-│ └── main.scss
-│
-├── App.jsx
-└── index.jsx
+- src  
+  - components  
+    - Input.jsx  
+    - Button.jsx  
+    - main.scss  
+    - _style.scss  
+    - _variables.scss  
+  - App.jsx  
+  - index.jsx
+  - index.html
 
 ## Setup
 npm install
