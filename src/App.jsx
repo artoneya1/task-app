@@ -3,13 +3,12 @@ import { useState, useEffect } from "react";
 import Input from "./components/Input";
 import Button from "./components/Button";
 
-
 export default function App() {
   const [tasks, setTasks] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [editId, setEditId] = useState(null);
   const [editValue, setEditValue] = useState("");
-  const [dragId, setDragId] = useState(null);
+  const [dragIndex, setDragIndex] = useState(null);
 
   /* LOAD TASKS FROM LOCAL STORAGE */
   useEffect(() => {
@@ -25,26 +24,13 @@ export default function App() {
   /* ADD NEW TASK */
   function addTask() {
     if (!inputValue.trim()) return;
-    setTasks([
-      ...tasks,
-      {
-        id: Date.now(),
-        text: inputValue,
-        completed: false
-      }
-    ]);
+    setTasks([...tasks, { id: Date.now(), text: inputValue, completed: false }]);
     setInputValue("");
   }
 
   /* TASK COMPLETED */
   function toggleTask(id) {
-    setTasks(
-      tasks.map(task =>
-        task.id === id
-          ? { ...task, completed: !task.completed }
-          : task
-      )
-    );
+    setTasks(tasks.map(task => task.id === id ? { ...task, completed: !task.completed } : task));
   }
 
   /* EDIT TASK */
@@ -55,33 +41,31 @@ export default function App() {
 
   /* SAVE TASK */
   function saveEdit(id) {
-  if (!editValue.trim()) {
-    setTasks(tasks.filter((task) => task.id !== id));
-  } else {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id
-          ? { ...task, text: editValue }
-          : task
-      )
-    );
+    if (!editValue.trim()) {
+      setTasks(tasks.filter(task => task.id !== id));
+    } else {
+      setTasks(tasks.map(task => task.id === id ? { ...task, text: editValue } : task));
+    }
+    setEditId(null);
+    setEditValue("");
   }
-  setEditId(null);
-  setEditValue("");
-}
 
   /* REORDER TASKS */
-  function reorderTasks(dragId, hoverId) {
-    if (dragId === hoverId) return;
-
+  function moveTask(from, to) {
+    if (from === to) return;
     const newTasks = [...tasks];
-    const dragIndex = newTasks.findIndex(t => t.id === dragId);
-    const hoverIndex = newTasks.findIndex(t => t.id === hoverId);
-    const [movedTask] = newTasks.splice(dragIndex, 1);
-    newTasks.splice(hoverIndex, 0, movedTask);
-
+    const [moved] = newTasks.splice(from, 1);
+    newTasks.splice(to, 0, moved);
     setTasks(newTasks);
-} 
+  }
+  function handleDragOver(e) {
+    const ul = e.currentTarget;
+    const rect = ul.getBoundingClientRect();
+    const topThreshold = rect.top + 30; 
+    const bottomThreshold = rect.bottom - 30;
+    if (e.clientY < topThreshold) ul.scrollBy(0, -10);
+    if (e.clientY > bottomThreshold) ul.scrollBy(0, 10);
+  }
 
   /* DELETE ALL TASKS */
   function deleteAll() {
@@ -101,20 +85,19 @@ export default function App() {
             onChange={(e) => setInputValue(e.target.value)}
             onEnter={addTask}
           />
-          <Button variant="primary" onClick={addTask}>
-            Add
-          </Button>
+          <Button variant="primary" onClick={addTask}>Add</Button>
         </div>
 
         <div className="counter-container">
-          <ul className="scroll">
-            {tasks.map((task) => (
+          <ul className="scroll" onDragOver={handleDragOver}>
+            {tasks.map((task, index) => (
               <li key={task.id} className={task.completed ? "done" : ""}
                 draggable
-                onDragStart={() => setDragId(task.id)}
+                onDragStart={() => setDragIndex(index)}
                 onDragOver={(e) => e.preventDefault()}
-                onDrop={() => reorderTasks(dragId, task.id)}
+                onDrop={() => moveTask(dragIndex, index)}
               >
+
                 <div className="task-row">
                     <input
                       type="checkbox"
@@ -149,9 +132,7 @@ export default function App() {
 
           <div className="counter-actions">
             <p>{tasks.length} items total</p>
-            <Button variant="danger" onClick={deleteAll}>
-              Delete All
-            </Button>
+            <Button variant="danger" onClick={deleteAll}>Delete All</Button>
           </div>
         </div>
       </div>
